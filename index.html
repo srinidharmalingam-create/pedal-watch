@@ -558,6 +558,55 @@
         font-weight: 900;
       }
 
+      .direct-song-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .direct-song-card {
+        display: grid;
+        min-height: 210px;
+        align-content: space-between;
+        gap: 12px;
+        border: 1px solid #d6c7b3;
+        border-radius: 8px;
+        padding: 16px;
+        background: #fffdf8;
+      }
+
+      .direct-song-card span {
+        color: var(--accent-dark);
+        font-size: 0.76rem;
+        font-weight: 900;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .direct-song-card h4 {
+        margin: 0;
+        font-size: 1.05rem;
+        line-height: 1.28;
+      }
+
+      .direct-song-card p {
+        font-size: 0.9rem;
+      }
+
+      .direct-song-card a {
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        padding: 0 12px;
+        background: var(--accent);
+        color: #fffaf1;
+        font-size: 0.85rem;
+        font-weight: 900;
+      }
+
       .source-note {
         margin-top: 18px;
       }
@@ -586,7 +635,8 @@
         .section-header,
         .meter-row,
         .lead-grid,
-        .song-grid {
+        .song-grid,
+        .direct-song-grid {
           grid-template-columns: 1fr;
         }
 
@@ -744,8 +794,65 @@
             <h3>Learn songs on guitar</h3>
             <p>
               Separate lesson lanes for friends who want to play along, not just
-              watch gear demos. Each link opens a focused YouTube search.
+              watch gear demos. Start with direct popular-song lessons, then use
+              the broader search lanes below to keep exploring.
             </p>
+            <div class="direct-song-grid" aria-label="Direct popular song lesson links">
+              <article class="direct-song-card">
+                <span>Oasis</span>
+                <h4>Wonderwall</h4>
+                <p>Marty Music lesson for the full acoustic strumming part.</p>
+                <a href="https://www.youtube.com/watch?v=o8wM8inaqmo" rel="noreferrer" target="_blank">Watch lesson</a>
+              </article>
+              <article class="direct-song-card">
+                <span>America</span>
+                <h4>A Horse With No Name</h4>
+                <p>JustinGuitar easy lesson for a beginner-friendly classic.</p>
+                <a href="https://www.youtube.com/watch?v=lPVK7eI2dKY" rel="noreferrer" target="_blank">Watch lesson</a>
+              </article>
+              <article class="direct-song-card">
+                <span>Lynyrd Skynyrd</span>
+                <h4>Sweet Home Alabama</h4>
+                <p>Marty Music tutorial for the main rhythm and hooks.</p>
+                <a href="https://www.youtube.com/watch?v=FOh9-f_o_MM" rel="noreferrer" target="_blank">Watch lesson</a>
+              </article>
+              <article class="direct-song-card">
+                <span>The Beatles</span>
+                <h4>Let It Be</h4>
+                <p>Marty Music walkthrough for chords and arrangement.</p>
+                <a href="https://www.youtube.com/watch?v=EYmHjJNlv9s" rel="noreferrer" target="_blank">Watch lesson</a>
+              </article>
+              <article class="direct-song-card">
+                <span>Eagles</span>
+                <h4>Hotel California</h4>
+                <p>Shutup &amp; Play intro lesson for acoustic guitar.</p>
+                <a href="https://www.youtube.com/watch?v=iVmkdIiNiCA" rel="noreferrer" target="_blank">Watch lesson</a>
+              </article>
+              <article class="direct-song-card">
+                <span>Green Day</span>
+                <h4>Good Riddance</h4>
+                <p>Marty Music lesson for the picking and chord pattern.</p>
+                <a href="https://www.youtube.com/watch?v=EIswehCl3v8" rel="noreferrer" target="_blank">Watch lesson</a>
+              </article>
+              <article class="direct-song-card">
+                <span>Nirvana</span>
+                <h4>Smells Like Teen Spirit</h4>
+                <p>Marty Music tutorial for the power-chord riff and rhythm.</p>
+                <a href="https://www.youtube.com/watch?v=LbMzStHsw3w" rel="noreferrer" target="_blank">Watch lesson</a>
+              </article>
+              <article class="direct-song-card">
+                <span>The Beatles</span>
+                <h4>Blackbird</h4>
+                <p>JustinGuitar detailed fingerstyle lesson.</p>
+                <a href="https://www.youtube.com/watch?v=mEn2SEwZKNE" rel="noreferrer" target="_blank">Watch lesson</a>
+              </article>
+              <article class="direct-song-card">
+                <span>Ben E. King</span>
+                <h4>Stand By Me</h4>
+                <p>JustinGuitar easy lesson for rhythm and chord changes.</p>
+                <a href="https://www.youtube.com/watch?v=KlHFye6_Icc" rel="noreferrer" target="_blank">Watch lesson</a>
+              </article>
+            </div>
             <div class="song-grid">
               <article class="song-card">
                 <span>Beginner songs</span>
