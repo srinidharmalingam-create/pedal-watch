@@ -728,8 +728,8 @@
             </p>
           </div>
           <div class="hero-strip" aria-label="Roundup stats">
-            <span>7 release leads</span>
-            <span>Updated June 12, 2026</span>
+            <span id="hero-leads-count">7 release leads</span>
+            <span id="hero-updated-at">Updated June 12, 2026</span>
             <span>No login needed</span>
           </div>
         </div>
@@ -769,15 +769,15 @@
 
           <div class="meter-row" aria-label="Roundup summary">
             <div>
-              <strong>7</strong>
+              <strong id="lead-count-summary">7</strong>
               <span>pedals tracked</span>
             </div>
             <div>
-              <strong>7</strong>
+              <strong id="effect-lane-count">7</strong>
               <span>effect lanes</span>
             </div>
             <div>
-              <strong>June 12, 2026</strong>
+              <strong id="updated-at-summary">June 12, 2026</strong>
               <span>latest refresh</span>
             </div>
           </div>
@@ -895,8 +895,9 @@
 
           <div class="source-note">
             <p>
-              This static version has no accounts, cookies, login gate, or
-              server-side tracking. It can be uploaded to any public static host.
+              This public static site has no accounts, cookies, login gate, or
+              server-side tracking. Pedal video leads refresh daily through a
+              scheduled GitHub Action.
             </p>
           </div>
         </div>
@@ -904,7 +905,7 @@
     </main>
 
     <script>
-      const leads = [
+      const fallbackLeads = [
         {
           id: "ehx-pico-shimmer",
           maker: "Electro-Harmonix",
@@ -1037,10 +1038,18 @@
         },
       ];
 
+      let leads = fallbackLeads;
+      let refreshLabel = "June 12, 2026";
+
       const grid = document.querySelector("#lead-grid");
       const emptyState = document.querySelector("#empty-state");
       const search = document.querySelector("#search");
       const filterButtons = [...document.querySelectorAll("[data-filter]")];
+      const heroLeadsCount = document.querySelector("#hero-leads-count");
+      const heroUpdatedAt = document.querySelector("#hero-updated-at");
+      const leadCountSummary = document.querySelector("#lead-count-summary");
+      const effectLaneCount = document.querySelector("#effect-lane-count");
+      const updatedAtSummary = document.querySelector("#updated-at-summary");
       let activeFilter = "All";
 
       function escapeHtml(value) {
@@ -1052,6 +1061,13 @@
       }
 
       function render() {
+        const typeCount = new Set(leads.map((lead) => lead.type)).size;
+        heroLeadsCount.textContent = `${leads.length} release leads`;
+        heroUpdatedAt.textContent = `Updated ${refreshLabel}`;
+        leadCountSummary.textContent = leads.length;
+        effectLaneCount.textContent = typeCount;
+        updatedAtSummary.textContent = refreshLabel;
+
         const query = search.value.trim().toLowerCase();
         const filtered = leads.filter((lead) => {
           const matchesFilter =
@@ -1112,6 +1128,45 @@
         emptyState.classList.toggle("visible", filtered.length === 0);
       }
 
+      function normalizeLead(lead) {
+        return {
+          id: lead.id || crypto.randomUUID(),
+          maker: lead.maker || lead.channelHint || "YouTube",
+          pedal: lead.pedal || lead.videoTitle || "Guitar pedal video",
+          type: lead.type || "Demo / Review",
+          status: lead.status || "Reviewed",
+          timing: lead.timing || "Auto-refreshed",
+          price: lead.price || "Check listing",
+          summary:
+            lead.summary ||
+            "Auto-found guitar effects pedal video from the daily refresh.",
+          videoTitle: lead.videoTitle || lead.pedal || "Watch demo",
+          channelHint: lead.channelHint || lead.maker || "YouTube",
+          youtubeUrl: lead.youtubeUrl,
+          sourceUrl: lead.sourceUrl || lead.youtubeUrl,
+          sourceName: lead.sourceName || "YouTube",
+          priority: lead.priority || "Fresh lead",
+        };
+      }
+
+      async function loadAutoRefresh() {
+        try {
+          const response = await fetch(`data/auto-refresh.json?v=${Date.now()}`, {
+            cache: "no-store",
+          });
+          if (!response.ok) return;
+          const data = await response.json();
+          if (!Array.isArray(data.leads) || data.leads.length === 0) return;
+          leads = data.leads
+            .filter((lead) => lead && lead.youtubeUrl)
+            .map(normalizeLead);
+          refreshLabel = data.updatedLabel || data.updatedAt || refreshLabel;
+          render();
+        } catch (error) {
+          console.warn("Using fallback pedal watch data", error);
+        }
+      }
+
       filterButtons.forEach((button) => {
         button.addEventListener("click", () => {
           activeFilter = button.dataset.filter;
@@ -1136,6 +1191,7 @@
       });
 
       render();
+      loadAutoRefresh();
     </script>
   </body>
 </html>
