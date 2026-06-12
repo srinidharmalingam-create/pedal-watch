@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A login-free roundup of newly released guitar effects pedals and YouTube video leads."
+    />
+    <meta property="og:title" content="Pedal Watch" />
+    <meta
+      property="og:description"
+      content="Fresh guitar effects pedal releases with YouTube video lanes and source links."
+    />
+    <meta property="og:image" content="pedal-watch-hero.png" />
+    <title>Pedal Watch</title>
+    <style>
+      :root {
+        --background: #f4efe6;
+        --foreground: #191714;
+        --ink-muted: #615950;
+        --panel: #fffaf1;
+        --panel-strong: #2a2824;
+        --line: #ddd1bf;
+        --accent: #b64a35;
+        --accent-dark: #772d23;
+        --mint: #2f7f76;
+        --gold: #c18432;
+        --shadow: 0 24px 70px rgba(35, 26, 16, 0.18);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        background: var(--background);
+        color: var(--foreground);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 92vh;
+        overflow: hidden;
+        background: #171411;
+        color: #fffaf1;
+      }
+
+      .hero-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-scrim {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(15, 12, 9, 0.88), rgba(15, 12, 9, 0.48) 48%, rgba(15, 12, 9, 0.08)),
+          linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.56));
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        min-height: 92vh;
+        width: min(1160px, calc(100% - 32px));
+        margin: 0 auto;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 28px 0 34px;
+      }
+
+      .masthead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand {
+        color: #fffdf7;
+        font-size: 1.05rem;
+        font-weight: 800;
+      }
+
+      .small-link {
+        border: 1px solid rgba(255, 250, 241, 0.42);
+        border-radius: 6px;
+        padding: 10px 14px;
+        color: #fffdf7;
+        font-size: 0.9rem;
+        font-weight: 700;
+        background: rgba(20, 17, 14, 0.28);
+      }
+
+      .hero-copy {
+        max-width: 730px;
+        padding: 13vh 0 8vh;
+      }
+
+      .eyebrow {
+        margin: 0 0 14px;
+        color: #e9b26b;
+        font-size: 0.78rem;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow.dark {
+        color: var(--accent-dark);
+      }
+
+      .hero h1 {
+        max-width: 720px;
+        margin: 0;
+        font-size: clamp(3rem, 8vw, 6.4rem);
+        font-weight: 900;
+        line-height: 0.95;
+      }
+
+      .dek {
+        max-width: 620px;
+        margin: 24px 0 0;
+        color: rgba(255, 250, 241, 0.84);
+        font-size: clamp(1.02rem, 2vw, 1.24rem);
+        line-height: 1.65;
+      }
+
+      .hero-strip {
+        display: grid;
+        max-width: 840px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 250, 241, 0.22);
+        border-radius: 8px;
+        background: rgba(255, 250, 241, 0.18);
+        box-shadow: var(--shadow);
+      }
+
+      .hero-strip span {
+        min-height: 58px;
+        display: grid;
+        place-items: center;
+        padding: 10px 14px;
+        background: rgba(23, 20, 17, 0.66);
+        color: #fffaf1;
+        font-size: 0.92rem;
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .watchlist-section {
+        background:
+          linear-gradient(180deg, #f4efe6 0%, #fffaf1 52%, #e9ded0 100%);
+        padding: 70px 0 84px;
+      }
+
+      .section-inner {
+        width: min(1160px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .section-header {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.72fr);
+        align-items: end;
+        gap: 30px;
+        margin-bottom: 28px;
+      }
+
+      .section-header h2 {
+        margin: 0;
+        font-size: clamp(2.15rem, 5vw, 4.25rem);
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .section-header p:last-child {
+        margin: 0;
+        color: var(--ink-muted);
+        font-size: 1rem;
+        line-height: 1.7;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin: 30px 0 18px;
+      }
+
+      .segmented {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        min-width: min(100%, 480px);
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .segmented button {
+        min-height: 46px;
+        border: 0;
+        border-right: 1px solid var(--line);
+        background: transparent;
+        color: var(--ink-muted);
+        cursor: pointer;
+        font-size: 0.88rem;
+        font-weight: 800;
+      }
+
+      .segmented button:last-child {
+        border-right: 0;
+      }
+
+      .segmented button.active {
+        background: var(--panel-strong);
+        color: #fffaf1;
+      }
+
+      .search-label {
+        display: grid;
+        min-width: min(100%, 340px);
+        gap: 7px;
+        color: var(--ink-muted);
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .search-label input {
+        min-height: 46px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 0 14px;
+        background: #fffdf8;
+        color: var(--foreground);
+        outline: none;
+      }
+
+      .search-label input:focus {
+        border-color: var(--mint);
+        box-shadow: 0 0 0 3px rgba(47, 127, 118, 0.16);
+      }
+
+      .meter-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin: 18px 0 22px;
+      }
+
+      .meter-row div {
+        min-height: 88px;
+        display: grid;
+        align-content: center;
+        gap: 6px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 16px;
+        background: rgba(255, 250, 241, 0.68);
+      }
+
+      .meter-row strong {
+        font-size: clamp(1.45rem, 3vw, 2rem);
+        line-height: 1;
+      }
+
+      .meter-row span {
+        color: var(--ink-muted);
+        font-size: 0.82rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .lead-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .lead-card {
+        display: flex;
+        min-height: 462px;
+        flex-direction: column;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+        background: #fffdf8;
+        box-shadow: 0 16px 45px rgba(35, 26, 16, 0.08);
+      }
+
+      .lead-topline,
+      .lead-title-row,
+      .actions,
+      .details {
+        display: flex;
+        align-items: center;
+      }
+
+      .lead-topline {
+        justify-content: space-between;
+        gap: 14px;
+        color: var(--ink-muted);
+        font-size: 0.78rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .status-pill {
+        border-radius: 999px;
+        padding: 7px 10px;
+        background: rgba(47, 127, 118, 0.12);
+        color: #1d615a;
+      }
+
+      .lead-title-row {
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      .maker {
+        margin: 0 0 4px;
+        color: var(--accent-dark);
+        font-size: 0.92rem;
+        font-weight: 900;
+      }
+
+      .lead-card h3 {
+        margin: 0;
+        font-size: clamp(1.4rem, 3vw, 2rem);
+        line-height: 1.08;
+      }
+
+      .type-badge {
+        flex: 0 0 auto;
+        max-width: 150px;
+        border: 1px solid #d6c7b3;
+        border-radius: 6px;
+        padding: 8px 10px;
+        color: var(--ink-muted);
+        font-size: 0.78rem;
+        font-weight: 900;
+        text-align: center;
+      }
+
+      .summary {
+        margin: 18px 0;
+        color: #3d3831;
+        font-size: 0.98rem;
+        line-height: 1.65;
+      }
+
+      .details {
+        gap: 10px;
+        margin: 0 0 16px;
+      }
+
+      .details div {
+        flex: 1;
+        min-height: 72px;
+        border-left: 3px solid var(--gold);
+        padding: 8px 10px;
+        background: #f5eadb;
+      }
+
+      .details dt {
+        color: var(--ink-muted);
+        font-size: 0.74rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .details dd {
+        margin: 4px 0 0;
+        font-size: 0.9rem;
+        font-weight: 800;
+      }
+
+      .video-panel {
+        margin-top: auto;
+        border: 1px solid #ded0be;
+        border-radius: 8px;
+        padding: 15px;
+        background: #24211d;
+        color: #fffaf1;
+      }
+
+      .video-label {
+        margin: 0 0 8px;
+        color: #e9b26b;
+        font-size: 0.76rem;
+        font-weight: 900;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .video-panel h4 {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.35;
+      }
+
+      .video-panel p:last-child {
+        margin: 8px 0 0;
+        color: rgba(255, 250, 241, 0.68);
+        font-size: 0.88rem;
+        line-height: 1.5;
+      }
+
+      .actions {
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .actions a,
+      .actions button {
+        min-height: 40px;
+        border: 1px solid #d6c7b3;
+        border-radius: 6px;
+        padding: 0 12px;
+        background: #fffaf1;
+        color: var(--foreground);
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 900;
+      }
+
+      .actions a {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .actions a:first-child {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: #fffaf1;
+      }
+
+      .empty-state,
+      .source-note {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+        background: rgba(255, 250, 241, 0.72);
+      }
+
+      .empty-state {
+        display: none;
+        margin-top: 16px;
+      }
+
+      .empty-state.visible {
+        display: block;
+      }
+
+      .empty-state h3,
+      .empty-state p,
+      .source-note p {
+        margin: 0;
+      }
+
+      .empty-state p,
+      .source-note p {
+        color: var(--ink-muted);
+        line-height: 1.6;
+      }
+
+      .source-note {
+        margin-top: 18px;
+      }
+
+      @media (max-width: 860px) {
+        .hero,
+        .hero-content {
+          min-height: 760px;
+        }
+
+        .hero-scrim {
+          background:
+            linear-gradient(180deg, rgba(15, 12, 9, 0.84), rgba(15, 12, 9, 0.52) 56%, rgba(15, 12, 9, 0.74)),
+            linear-gradient(90deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.08));
+        }
+
+        .hero-copy {
+          padding-top: 10vh;
+        }
+
+        .hero h1 {
+          font-size: clamp(2.6rem, 16vw, 5rem);
+        }
+
+        .hero-strip,
+        .section-header,
+        .meter-row,
+        .lead-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .controls {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .segmented,
+        .search-label {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .hero-content,
+        .section-inner {
+          width: min(100% - 24px, 1160px);
+        }
+
+        .masthead {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .small-link {
+          width: 100%;
+          text-align: center;
+        }
+
+        .segmented {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .segmented button:nth-child(2) {
+          border-right: 0;
+        }
+
+        .segmented button:nth-child(-n + 2) {
+          border-bottom: 1px solid var(--line);
+        }
+
+        .lead-card {
+          min-height: auto;
+          padding: 16px;
+        }
+
+        .lead-title-row,
+        .details {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .type-badge {
+          max-width: none;
+          text-align: left;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <img
+          class="hero-image"
+          src="pedal-watch-hero.png"
+          alt="A studio desk with guitar effects pedals and a laptop showing video thumbnails"
+        />
+        <div class="hero-scrim"></div>
+        <div class="hero-content">
+          <div class="masthead">
+            <a class="brand" href="#top" aria-label="Pedal Watch home">Pedal Watch</a>
+            <a class="small-link" href="#watchlist">Browse videos</a>
+          </div>
+          <div class="hero-copy">
+            <p class="eyebrow">New effects pedal video radar</p>
+            <h1>Fresh pedal releases, lined up for the next watch session.</h1>
+            <p class="dek">
+              A shareable roundup of newly released guitar effects pedals with
+              focused YouTube lanes, source links, and quick notes for deciding
+              what to watch first.
+            </p>
+          </div>
+          <div class="hero-strip" aria-label="Roundup stats">
+            <span>7 release leads</span>
+            <span>Updated June 12, 2026</span>
+            <span>No login needed</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="watchlist-section" id="watchlist">
+        <div class="section-inner">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow dark">Watchlist</p>
+              <h2>Release leads and video lanes</h2>
+            </div>
+            <p>
+              Seeded from current guitar-gear coverage and designed for weekly
+              refreshes. Each YouTube link opens a focused search for official
+              demos, launch clips, and early reviews.
+            </p>
+          </div>
+
+          <div class="controls" aria-label="Filter pedal videos">
+            <div class="segmented" role="group" aria-label="Status filter">
+              <button class="active" data-filter="All" type="button">All</button>
+              <button data-filter="Confirmed" type="button">Confirmed</button>
+              <button data-filter="Pre-order" type="button">Pre-order</button>
+              <button data-filter="Reviewed" type="button">Reviewed</button>
+            </div>
+            <label class="search-label">
+              <span>Search releases</span>
+              <input
+                aria-label="Search releases"
+                id="search"
+                placeholder="delay, Meris, boost..."
+                type="search"
+              />
+            </label>
+          </div>
+
+          <div class="meter-row" aria-label="Roundup summary">
+            <div>
+              <strong>7</strong>
+              <span>pedals tracked</span>
+            </div>
+            <div>
+              <strong>7</strong>
+              <span>effect lanes</span>
+            </div>
+            <div>
+              <strong>June 12, 2026</strong>
+              <span>latest refresh</span>
+            </div>
+          </div>
+
+          <div class="lead-grid" id="lead-grid"></div>
+
+          <div class="empty-state" id="empty-state">
+            <h3>No pedals match that filter.</h3>
+            <p>Clear the search or switch back to All.</p>
+          </div>
+
+          <div class="source-note">
+            <p>
+              This static version has no accounts, cookies, login gate, or
+              server-side tracking. It can be uploaded to any public static host.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const leads = [
+        {
+          id: "ehx-pico-shimmer",
+          maker: "Electro-Harmonix",
+          pedal: "Pico Shimmer",
+          type: "Reverb",
+          status: "Confirmed",
+          timing: "Launched this week",
+          price: "$149",
+          summary:
+            "A compact cosmic shimmer reverb with Intergalactic, Off-World, and Etherdust modes plus infinite sustain.",
+          videoTitle: "Pico Shimmer official demo and first reviews",
+          channelHint: "Official EHX demos, Premier Guitar, Sweetwater",
+          youtubeUrl:
+            "https://www.youtube.com/results?search_query=Electro-Harmonix+Pico+Shimmer+official+demo",
+          sourceUrl:
+            "https://www.musicradar.com/guitars/electro-harmonix-pico-shimmer-cosmic-reverb-pedal",
+          sourceName: "MusicRadar",
+          priority: "Watch first",
+        },
+        {
+          id: "eventide-h9-gen-2",
+          maker: "Eventide",
+          pedal: "H9 Harmonizer Gen 2",
+          type: "Multi-FX",
+          status: "Pre-order",
+          timing: "Shipping June 24, 2026",
+          price: "$599",
+          summary:
+            "The compact H9 returns with all 74 H9 Max and H90 algorithms, ARM processing, SIFT, USB-C, and a 2.5-inch interface.",
+          videoTitle: "H9 Harmonizer Gen 2 launch demos",
+          channelHint: "Eventide Audio, Guitar World, That Pedal Show",
+          youtubeUrl:
+            "https://www.youtube.com/results?search_query=Eventide+H9+Harmonizer+Gen+2+demo",
+          sourceUrl:
+            "https://www.musicradar.com/guitars/eventide-h9-harmonizer-gen-2-multi-fx-pedal",
+          sourceName: "MusicRadar",
+          priority: "Deep dive",
+        },
+        {
+          id: "jhs-fumble",
+          maker: "JHS Pedals",
+          pedal: "Fumble",
+          type: "Boost",
+          status: "Confirmed",
+          timing: "Announced in June 2026",
+          price: "$89",
+          summary:
+            "A small clean boost with a Dumble-adjacent origin story and an unusually friendly launch price.",
+          videoTitle: "JHS Fumble boost demo and A/B comparisons",
+          channelHint: "JHS Pedals, Rhett Shull, Andertons",
+          youtubeUrl:
+            "https://www.youtube.com/results?search_query=JHS+Pedals+Fumble+boost+demo",
+          sourceUrl: "https://www.guitarworld.com/gear/guitar-gear-round-up-june-6",
+          sourceName: "Guitar World",
+          priority: "Budget pick",
+        },
+        {
+          id: "meris-ottobit-x",
+          maker: "Meris",
+          pedal: "Ottobit X",
+          type: "Lo-fi / Bitcrush",
+          status: "Confirmed",
+          timing: "Featured in June 2026 gear roundups",
+          price: "TBD",
+          summary:
+            "A newer Meris lo-fi multi-effect lane for players who want glitch, bitcrush, synthy movement, and studio weirdness.",
+          videoTitle: "Meris Ottobit X demos and sound design walkthroughs",
+          channelHint: "Meris, Knobs, Collector//Emitter",
+          youtubeUrl:
+            "https://www.youtube.com/results?search_query=Meris+Ottobit+X+demo",
+          sourceUrl: "https://www.guitarworld.com/gear/guitar-gear-round-up-june-6",
+          sourceName: "Guitar World",
+          priority: "Experimental",
+        },
+        {
+          id: "nux-mg-50li",
+          maker: "NUX",
+          pedal: "MG-50Li",
+          type: "Modeler / Multi-FX",
+          status: "Reviewed",
+          timing: "Recent review coverage",
+          price: "Varies",
+          summary:
+            "A rechargeable floor modeler with NAM profile compatibility, a color screen, expression pedal, MIDI, XLR, and USB-C.",
+          videoTitle: "NUX MG-50Li reviews and NAM profile demos",
+          channelHint: "MusicRadar, NUX, The Studio Rats",
+          youtubeUrl:
+            "https://www.youtube.com/results?search_query=NUX+MG-50Li+review+NAM+demo",
+          sourceUrl: "https://www.musicradar.com/guitars/guitar-pedals/nux-mg-50li-review",
+          sourceName: "MusicRadar",
+          priority: "Modeler watch",
+        },
+        {
+          id: "casio-dimension-shifter",
+          maker: "Casio",
+          pedal: "Dimension Shifter",
+          type: "Expression Control",
+          status: "Confirmed",
+          timing: "Launched in 2026",
+          price: "$389.99",
+          summary:
+            "A strap-mounted controller and pedal receiver that maps guitar movement into expression control for effects.",
+          videoTitle: "Casio Dimension Shifter demos with motion control",
+          channelHint: "Casio Music, Yvette Young features, Guitar World",
+          youtubeUrl:
+            "https://www.youtube.com/results?search_query=Casio+Dimension+Shifter+guitar+demo",
+          sourceUrl:
+            "https://www.guitarworld.com/gear/effects-pedals/casio-dimension-shifter",
+          sourceName: "Guitar World",
+          priority: "Wildcard",
+        },
+        {
+          id: "ibanez-ld303",
+          maker: "Ibanez",
+          pedal: "LD303 Layer Delayer",
+          type: "Delay",
+          status: "Confirmed",
+          timing: "NAMM 2026 reveal",
+          price: "$279.99",
+          summary:
+            "A high-control delay with blended voices, stereo panning, MIDI, tap tempo, presets, and a wet signal effects loop.",
+          videoTitle: "Ibanez LD303 Layer Delayer demos",
+          channelHint: "Ibanez Guitar, NAMM show floor, Jack Gardiner demos",
+          youtubeUrl:
+            "https://www.youtube.com/results?search_query=Ibanez+LD303+Layer+Delayer+demo",
+          sourceUrl:
+            "https://www.guitarworld.com/gear/effects-pedals/ibanez-layer-delayer-ld303",
+          sourceName: "Guitar World",
+          priority: "Delay heads",
+        },
+      ];
+
+      const grid = document.querySelector("#lead-grid");
+      const emptyState = document.querySelector("#empty-state");
+      const search = document.querySelector("#search");
+      const filterButtons = [...document.querySelectorAll("[data-filter]")];
+      let activeFilter = "All";
+
+      function escapeHtml(value) {
+        return value
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;");
+      }
+
+      function render() {
+        const query = search.value.trim().toLowerCase();
+        const filtered = leads.filter((lead) => {
+          const matchesFilter =
+            activeFilter === "All" || lead.status === activeFilter;
+          const haystack = [
+            lead.maker,
+            lead.pedal,
+            lead.type,
+            lead.summary,
+            lead.channelHint,
+          ]
+            .join(" ")
+            .toLowerCase();
+          return matchesFilter && haystack.includes(query);
+        });
+
+        grid.innerHTML = filtered
+          .map(
+            (lead) => `
+              <article class="lead-card" id="${escapeHtml(lead.id)}">
+                <div class="lead-topline">
+                  <span class="status-pill">${escapeHtml(lead.status)}</span>
+                  <span>${escapeHtml(lead.priority)}</span>
+                </div>
+                <div class="lead-title-row">
+                  <div>
+                    <p class="maker">${escapeHtml(lead.maker)}</p>
+                    <h3>${escapeHtml(lead.pedal)}</h3>
+                  </div>
+                  <div class="type-badge">${escapeHtml(lead.type)}</div>
+                </div>
+                <p class="summary">${escapeHtml(lead.summary)}</p>
+                <dl class="details">
+                  <div>
+                    <dt>Timing</dt>
+                    <dd>${escapeHtml(lead.timing)}</dd>
+                  </div>
+                  <div>
+                    <dt>Price</dt>
+                    <dd>${escapeHtml(lead.price)}</dd>
+                  </div>
+                </dl>
+                <div class="video-panel">
+                  <p class="video-label">YouTube lane</p>
+                  <h4>${escapeHtml(lead.videoTitle)}</h4>
+                  <p>${escapeHtml(lead.channelHint)}</p>
+                </div>
+                <div class="actions">
+                  <a href="${escapeHtml(lead.youtubeUrl)}" rel="noreferrer" target="_blank">Open YouTube</a>
+                  <a href="${escapeHtml(lead.sourceUrl)}" rel="noreferrer" target="_blank">${escapeHtml(lead.sourceName)}</a>
+                  <button data-copy="${escapeHtml(lead.id)}" type="button">Copy link</button>
+                </div>
+              </article>
+            `
+          )
+          .join("");
+
+        emptyState.classList.toggle("visible", filtered.length === 0);
+      }
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          activeFilter = button.dataset.filter;
+          filterButtons.forEach((item) => item.classList.remove("active"));
+          button.classList.add("active");
+          render();
+        });
+      });
+
+      search.addEventListener("input", render);
+
+      grid.addEventListener("click", async (event) => {
+        const button = event.target.closest("[data-copy]");
+        if (!button) return;
+        const lead = leads.find((item) => item.id === button.dataset.copy);
+        if (!lead) return;
+        await navigator.clipboard.writeText(`${lead.maker} ${lead.pedal}: ${lead.youtubeUrl}`);
+        button.textContent = "Copied";
+        window.setTimeout(() => {
+          button.textContent = "Copy link";
+        }, 1600);
+      });
+
+      render();
+    </script>
+  </body>
+</html>
