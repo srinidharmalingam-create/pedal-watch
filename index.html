@@ -114,6 +114,13 @@
         background: rgba(20, 17, 14, 0.28);
       }
 
+      .nav-links {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
       .hero-copy {
         max-width: 730px;
         padding: 13vh 0 8vh;
@@ -465,7 +472,8 @@
       }
 
       .empty-state,
-      .source-note {
+      .source-note,
+      .song-section {
         border: 1px solid var(--line);
         border-radius: 8px;
         padding: 20px;
@@ -483,14 +491,71 @@
 
       .empty-state h3,
       .empty-state p,
+      .song-section h3,
+      .song-section p,
       .source-note p {
         margin: 0;
       }
 
       .empty-state p,
+      .song-section p,
       .source-note p {
         color: var(--ink-muted);
         line-height: 1.6;
+      }
+
+      .song-section {
+        margin-top: 18px;
+      }
+
+      .song-section h3 {
+        font-size: clamp(1.35rem, 3vw, 2rem);
+        line-height: 1.12;
+      }
+
+      .song-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .song-card {
+        display: grid;
+        min-height: 190px;
+        align-content: space-between;
+        gap: 14px;
+        border: 1px solid #d6c7b3;
+        border-radius: 8px;
+        padding: 16px;
+        background: #fffdf8;
+      }
+
+      .song-card span {
+        color: var(--accent-dark);
+        font-size: 0.76rem;
+        font-weight: 900;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .song-card h4 {
+        margin: 0;
+        font-size: 1.08rem;
+        line-height: 1.25;
+      }
+
+      .song-card a {
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        padding: 0 12px;
+        background: var(--panel-strong);
+        color: #fffaf1;
+        font-size: 0.85rem;
+        font-weight: 900;
       }
 
       .source-note {
@@ -520,7 +585,8 @@
         .hero-strip,
         .section-header,
         .meter-row,
-        .lead-grid {
+        .lead-grid,
+        .song-grid {
           grid-template-columns: 1fr;
         }
 
@@ -546,8 +612,12 @@
           flex-direction: column;
         }
 
-        .small-link {
+        .nav-links {
           width: 100%;
+        }
+
+        .small-link {
+          flex: 1;
           text-align: center;
         }
 
@@ -593,7 +663,10 @@
         <div class="hero-content">
           <div class="masthead">
             <a class="brand" href="#top" aria-label="Kev's Pedal Watch home">Kev's Pedal Watch</a>
-            <a class="small-link" href="#watchlist">Browse videos</a>
+            <div class="nav-links" aria-label="Site links">
+              <a class="small-link" href="#watchlist">Browse videos</a>
+              <a class="small-link" href="#learn-songs">Learn songs</a>
+            </div>
           </div>
           <div class="hero-copy">
             <p class="eyebrow">New effects pedal video radar</p>
@@ -665,6 +738,53 @@
             <h3>No pedals match that filter.</h3>
             <p>Clear the search or switch back to All.</p>
           </div>
+
+          <section class="song-section" id="learn-songs">
+            <p class="eyebrow dark">How-to videos</p>
+            <h3>Learn songs on guitar</h3>
+            <p>
+              Separate lesson lanes for friends who want to play along, not just
+              watch gear demos. Each link opens a focused YouTube search.
+            </p>
+            <div class="song-grid">
+              <article class="song-card">
+                <span>Beginner songs</span>
+                <h4>Easy first songs with open chords</h4>
+                <p>Simple strumming, slow changes, and campfire standards.</p>
+                <a href="https://www.youtube.com/results?search_query=easy+beginner+guitar+songs+lesson+open+chords" rel="noreferrer" target="_blank">Open lessons</a>
+              </article>
+              <article class="song-card">
+                <span>Acoustic classics</span>
+                <h4>Learn full acoustic songs</h4>
+                <p>Verse, chorus, strumming pattern, and chord walkthroughs.</p>
+                <a href="https://www.youtube.com/results?search_query=acoustic+guitar+song+lesson+full+song+strumming+chords" rel="noreferrer" target="_blank">Open lessons</a>
+              </article>
+              <article class="song-card">
+                <span>Riffs</span>
+                <h4>Famous riffs and hooks</h4>
+                <p>Short electric parts that are fun to learn in one sitting.</p>
+                <a href="https://www.youtube.com/results?search_query=famous+guitar+riffs+lesson+for+beginners" rel="noreferrer" target="_blank">Open lessons</a>
+              </article>
+              <article class="song-card">
+                <span>Fingerstyle</span>
+                <h4>Fingerpicking song lessons</h4>
+                <p>Pattern-based lessons for melody, bass notes, and timing.</p>
+                <a href="https://www.youtube.com/results?search_query=fingerstyle+guitar+song+lesson+beginner" rel="noreferrer" target="_blank">Open lessons</a>
+              </article>
+              <article class="song-card">
+                <span>Solos</span>
+                <h4>Iconic guitar solos, slowed down</h4>
+                <p>Phrase-by-phrase lead lessons with tabs and timing help.</p>
+                <a href="https://www.youtube.com/results?search_query=classic+guitar+solo+lesson+slow+with+tabs" rel="noreferrer" target="_blank">Open lessons</a>
+              </article>
+              <article class="song-card">
+                <span>Modern songs</span>
+                <h4>Newer pop, indie, and rock guitar parts</h4>
+                <p>Current song tutorials with capo, chord, and rhythm notes.</p>
+                <a href="https://www.youtube.com/results?search_query=modern+song+guitar+lesson+chords+strumming" rel="noreferrer" target="_blank">Open lessons</a>
+              </article>
+            </div>
+          </section>
 
           <div class="source-note">
             <p>
